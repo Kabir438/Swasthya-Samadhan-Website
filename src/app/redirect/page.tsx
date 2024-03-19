@@ -34,19 +34,14 @@ function detectOS() {
   return os;
 }
 
-const recordContributor = () => {
-  
-}
-
 export default function IndexPage() {
-  const contributor = new URLSearchParams(window.location.search).get(
-    "contributor"
-  );
+  // const contributor = new URLSearchParams(window.location.search).get(
+  //   "contributor"
+  // );
   const [appState, setAppState] = useState<
     "ios" | "redirect" | "options" | "loading"
   >("loading");
   const [multiplicant, setMultiplicant] = useState<1 | 2 | 3>(1);
-  console.log(contributor);
   useEffect(() => {
     const os = detectOS();
     if (os === "ios") {
