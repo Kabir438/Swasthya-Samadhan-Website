@@ -3,7 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import { cn } from "@/utils/cn";
-import { Poppins } from "next/font/google"
+import { Poppins } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,10 +14,10 @@ export const metadata: Metadata = {
 };
 
 const poppins = Poppins({
-	subsets: ["latin"],
-	variable: "--font-sans",
-	weight: ["300", "400", "500", "600"]
-})
+  subsets: ["latin"],
+  variable: "--font-sans",
+  weight: ["300", "400", "500", "600"],
+});
 
 export default function RootLayout({
   children,
@@ -25,9 +26,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn(inter.className, 'light text-foreground bg-background', poppins.className)}>
+      <body
+        className={cn(
+          inter.className,
+          "light text-foreground bg-background",
+          poppins.className
+        )}
+      >
         <Providers>{children}</Providers>
       </body>
+      <GoogleAnalytics gaId={`${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`} />
     </html>
   );
 }

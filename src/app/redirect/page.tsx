@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { useRouter } from "next/navigation";
 
 function detectOS() {
   let userAgent = window.navigator.userAgent,
@@ -33,12 +34,19 @@ function detectOS() {
   return os;
 }
 
+const recordContributor = () => {
+  
+}
+
 export default function IndexPage() {
+  const contributor = new URLSearchParams(window.location.search).get(
+    "contributor"
+  );
   const [appState, setAppState] = useState<
     "ios" | "redirect" | "options" | "loading"
   >("loading");
   const [multiplicant, setMultiplicant] = useState<1 | 2 | 3>(1);
-
+  console.log(contributor);
   useEffect(() => {
     const os = detectOS();
     if (os === "ios") {
@@ -92,16 +100,12 @@ export default function IndexPage() {
               loop={true}
               height={300}
               width={300}
-              // style={{
-              // 	height: "150px",
-              // 	width: "150px"
-              // }}
             />
           </div>
           <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
-            We are Working on the IOS app.
+            We are Working on the IOS app
           </h1>
-          <h2 className="scroll-m-20 text-2xl font-extrabold tracking-tight lg:text-3xl">
+          <h2 className="scroll-m-20 text-2xl mt-2 font-extrabold tracking-tight lg:text-3xl">
             Please wait while we develop it.
           </h2>
         </div>
@@ -140,28 +144,33 @@ export default function IndexPage() {
             </h1>
           </CardHeader>
           <CardContent className="flex flex-col items-center justify-center gap-5 p-0">
-            <Button
-              variant="destructive"
-              size={"lg"}
-              style={{
-                fontSize: "26px",
-                padding: "13px",
-                paddingRight: "18px",
-              }}
+            <a
+              href={process.env.NEXT_PUBLIC_ANDROID_LINK}
               className="w-full h-20 justify-start"
             >
-              <div className="w-full min-w-max h-full as gap-2 text-2xl sm:text-3xl flex items-center justify-start">
-                <div className="bg-white grid place-items-center p-2 rounded-[6px] aspect-square h-[54px] w-[54px]">
-                  <Image
-                    alt={"Google Play"}
-                    src={"/gplay.png"}
-                    width={26}
-                    height={26}
-                  />
+              <Button
+                variant="destructive"
+                size={"lg"}
+                style={{
+                  fontSize: "26px",
+                  padding: "13px",
+                  paddingRight: "18px",
+                }}
+                className="w-full h-20 justify-start"
+              >
+                <div className="w-full min-w-max h-full as gap-2 text-2xl sm:text-3xl flex items-center justify-start">
+                  <div className="bg-white grid place-items-center p-2 rounded-[6px] aspect-square h-[54px] w-[54px]">
+                    <Image
+                      alt={"Google Play"}
+                      src={"/gplay.png"}
+                      width={26}
+                      height={26}
+                    />
+                  </div>
+                  Android App
                 </div>
-                Android App
-              </div>
-            </Button>
+              </Button>
+            </a>
             <Button
               // variant=""
               size={"lg"}
@@ -171,8 +180,17 @@ export default function IndexPage() {
                 paddingRight: "18px",
               }}
               disabled
-              className="flex items-center justify-start h-20 w-full bg-gray-400 hover:bg-gray-400 cursor-not-allowed disabled:opacity-75"
+              className="flex relative items-center justify-start h-20 w-full bg-gray-400 hover:bg-gray-400 cursor-not-allowed disabled:opacity-75"
             >
+              <div
+                className="absolute bg-[#2d2d2d] text-white text-lg px-2 py-1 rounded-lg right-0 top-0 translate-x-[15%] -translate-y-[40%]"
+                style={{
+                  animation: "pulse 2s infinite",
+                }}
+              >
+                Under Development
+              </div>
+
               <div className="w-[calc(100%-10px)] min-w-max text-2xl sm:text-3xl h-full as gap-2 flex items-center justify-start mx-[3px]">
                 <div
                   className="w-[54px] h-[54px] grid place-items-center"
