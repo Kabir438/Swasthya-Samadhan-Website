@@ -7,9 +7,11 @@ import gearAnimation from "@/assets/animations/gear.json";
 import Lottie from "lottie-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import Link from "next/link";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { useRouter } from "next/navigation";
+import { updateDoc, setDoc, doc, increment, getDoc } from "firebase/firestore";
+import { db } from "@/firebase";
+import Cookies from "js-cookie";
+import useMount from "@/hooks/useMount";
 
 function detectOS() {
   let userAgent = window.navigator.userAgent,
@@ -35,14 +37,23 @@ function detectOS() {
 }
 
 export default function IndexPage() {
-  // const contributor = new URLSearchParams(window.location.search).get(
-  //   "contributor"
-  // );
   const [appState, setAppState] = useState<
     "ios" | "redirect" | "options" | "loading"
   >("loading");
   const [multiplicant, setMultiplicant] = useState<1 | 2 | 3>(1);
-  useEffect(() => {
+  useMount(() => {
+    const promoter = new URLSearchParams(window.location.search).get(
+      "promoter"
+    );
+    const intervalId = setInterval(() => {
+      setMultiplicant((prev) => {
+        if (prev === 1) return 2;
+        if (prev === 2) return 3;
+        if (prev === 3) return 1;
+        return 1;
+      });
+    }, 950);
+
     const os = detectOS();
     if (os === "ios") {
       setAppState("ios");
@@ -52,18 +63,31 @@ export default function IndexPage() {
     } else {
       setAppState("options");
     }
-    const intervalId = setInterval(() => {
-      setMultiplicant((prev) => {
-        if (prev === 1) return 2;
-        if (prev === 2) return 3;
-        if (prev === 3) return 1;
-        return 1;
-      });
-    }, 950);
+
+    if (Cookies.get("analytics")) {
+      console.log("has done analytics");
+      return () => {
+        clearInterval(intervalId);
+      };
+    }
+
+    getDoc(doc(db, `promoters/${promoter}`)).then((data) => {
+      if(Cookies.get("analytics")) return;
+      if (data.exists()) {
+        updateDoc(doc(db, `promoters/${promoter}`), {
+          count: increment(1),
+        }).then(() => Cookies.set("analytics", `${new Date().getTime()}`));
+      } else {
+        setDoc(doc(db, `promoters/${promoter}`), {
+          count: 1,
+        }).then(() => Cookies.set("analytics", `${new Date().getTime()}`));
+      }
+    });
+
     return () => {
       clearInterval(intervalId);
     };
-  }, []);
+  });
 
   return (
     <main className={cn("grid place-items-center w-screen h-screen")}>

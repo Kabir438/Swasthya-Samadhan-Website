@@ -4,7 +4,8 @@ import "./globals.css";
 import { Providers } from "./providers";
 import { cn } from "@/utils/cn";
 import { Poppins } from "next/font/google";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
+import { Partytown } from "@builder.io/partytown/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,7 +36,10 @@ export default function RootLayout({
       >
         <Providers>{children}</Providers>
       </body>
-      <GoogleAnalytics gaId={`${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`} />
+      <head>
+        <Partytown debug={true} forward={["dataLayer.push"]} />
+        <GoogleAnalytics gaId={`${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`} />
+      </head>
     </html>
   );
 }
