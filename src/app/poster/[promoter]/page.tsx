@@ -494,7 +494,7 @@ export default function Poster({
           <Image
             src={`/doctor.png`}
             alt={`Doctor`}
-            quality={10}
+            quality={15}
             fill
             style={{
               objectFit: "contain",
