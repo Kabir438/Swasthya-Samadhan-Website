@@ -77,10 +77,10 @@ function extractDetails(input: string):
   };
 }
 
-const redHatDisplay = Red_Hat_Display({
-  weight: "600",
-  preload: true
-})
+// const redHatDisplay = Red_Hat_Display({
+//   weight: "600",
+//   preload: true
+// })
 
 export async function generateMetadata(
   {
@@ -207,9 +207,9 @@ export default function Poster({
             MozOsxFontSmoothing: "grayscale",
             textRendering: "geometricPrecision",
             whiteSpace: "normal",
-            // fontFamily: "Red Hat Display",
-            // fontWeight: "800",
-            ...redHatDisplay.style
+            fontFamily: "Red Hat Display",
+            fontWeight: "800",
+            // ...redHatDisplay.style
           }}
         >
           {data.title.map((segment, i) => {
@@ -486,9 +486,9 @@ export default function Poster({
               height: "max-content",
               marginTop: 5,
               lineHeight: 1,
-              // fontFamily: "Red Hat Display",
-              // fontWeight: "700",
-              ...redHatDisplay.style
+              fontFamily: "Red Hat Display",
+              fontWeight: "700",
+              // ...redHatDisplay.style
             }}
           >
             Swasthya Samadhan
@@ -524,8 +524,9 @@ export default function Poster({
             height: "max-content",
             marginTop: 5,
             lineHeight: 1,
-            // fontFamily: "Red Hat Display"
-            ...redHatDisplay.style
+            fontFamily: "Red Hat Display",
+            fontWeight: "700"
+            // ...redHatDisplay.style
           }}
         >
           {data.scanText}
