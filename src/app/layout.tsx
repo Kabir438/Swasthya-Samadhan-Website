@@ -36,10 +36,6 @@ export default function RootLayout({
       >
         <Providers>{children}</Providers>
       </body>
-      <head>
-        <Partytown debug={true} forward={["dataLayer.push"]} />
-        <GoogleAnalytics gaId={`${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`} />
-      </head>
     </html>
   );
 }
