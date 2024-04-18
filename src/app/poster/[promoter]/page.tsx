@@ -219,7 +219,7 @@ export default function Poster({
                   return (
                     <h1
                       key={`title-sement-${i}`}
-                      className={cn(i === 1 ? "-mt-[8px]" : "")}
+                      className={cn(i === 1 ? "-mt-[8px] font-extrabold" : "font-extrabold")}
                     >
                       <span className="text-[#ce0000] underline">
                         {details.special}
