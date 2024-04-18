@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Red_Hat_Display } from "next/font/google";
 import type { Metadata, ResolvingMetadata } from "next";
 import { cn } from "@/utils/cn";
@@ -158,7 +157,7 @@ export default function Poster({
             aspectRatio: "1626 / 278",
           }}
         >
-          <Image
+          <img
             src={data.logo}
             alt={`${language} logo`}
             width={307.57*2}
@@ -178,7 +177,7 @@ export default function Poster({
             aspectRatio: "1 / 1",
           }}
         >
-          <Image
+          <img
             src={`/icon-logo.png`}
             alt={`icon logo`}
             width={86.344*2}
@@ -303,14 +302,14 @@ export default function Poster({
             opacity: 0.55,
           }}
         >
-          <Image
+          <img
             style={{
               objectFit: "contain",
               transform: "translate(-50%, -50%) rotate(206deg)",
             }}
             src={"/shadow.png"}
             alt={"shadow"}
-            fill
+            // fill
           />
         </div>
         <div
@@ -491,11 +490,11 @@ export default function Poster({
             aspectRatio: "439 / 329",
           }}
         >
-          <Image
+          <img
             src={`/doctor.png`}
             alt={`Doctor`}
-            quality={15}
-            fill
+            // quality={15}
+            // fill
             style={{
               objectFit: "contain",
             }}
