@@ -508,7 +508,7 @@ export default function Poster({
         </div>
         <h2
           className={cn(
-            "absolute left-[50%] w-[170px] right-[50%] text-center -translate-x-[50%] -translate-y-[50%]",
+            "absolute left-[50%] w-[150px] font-extrabold right-[50%] text-center -translate-x-[50%] -translate-y-[50%]",
             redHatDisplay.className
           )}
           style={{
