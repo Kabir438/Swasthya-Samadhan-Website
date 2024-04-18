@@ -59,7 +59,7 @@ export default function IndexPage() {
       setAppState("ios");
     } else if (os === "android") {
       setAppState("redirect");
-      window.open(process.env.NEXT_PUBLIC_ANDROID_LINK);
+      window.open(process.env.NEXT_PUBLIC_ANDROID_LINK, '_parent');
     } else {
       setAppState("options");
     }
