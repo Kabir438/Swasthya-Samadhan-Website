@@ -1,6 +1,11 @@
+import Image from "next/image"
 import { Red_Hat_Display } from "next/font/google";
 import type { Metadata, ResolvingMetadata } from "next";
+import doctorImg from "@/assets/images/doctor.png"
 import { cn } from "@/utils/cn";
+import * as screenshots from "@/assets/images/screenshots"
+import * as logos from "@/assets/images/logos"
+import iconLogo from "@/assets/images/icon-logo.png"
 
 const LOGO_TOP_PERCENTAGE = 3.5185185185;
 const LOGO_LEFT_PERCENTAGE = 2.07142857143;
@@ -103,21 +108,21 @@ export async function generateMetadata(
 function getData() {
   return {
     english: {
-      logo: "/logos/english.png",
+      logo: logos.english,
       title: ["Your Pocket", "*Doctor*"],
-      screenshotImage: "/screenshots/english.png",
+      screenshotImage: screenshots.english,
       scanText: `Scan this code to download the app.`,
     },
     hindi: {
-      logo: "/logos/hindi.png",
+      logo: logos.hindi,
       title: ["आपकी जेब में रहने", "वाला *डॉक्टर*"],
-      screenshotImage: "/screenshots/hindi.png",
+      screenshotImage: screenshots.hindi,
       scanText: `इस कोड को स्कैन करें और ऐप डाउनलोड करें।.`,
     },
     punjabi: {
-      logo: "/logos/punjabi.png",
+      logo: logos.punjabi,
       title: ["ਤੁਹਾਡੀ ਜੇਬ ਵਿਚ ਰਹਿਣ", "ਵਾਲਾ *ਡਾਕਟਰ*"],
-      screenshotImage: "/screenshots/punjabi.png",
+      screenshotImage: screenshots.punjabi,
       scanText: `ਇਹ ਕੋਡ ਸਕੈਨ ਕਰੋ ਅਤੇ ਐਪ ਡਾਉਨਲੋਡ ਕਰੋ।`,
     },
   };
@@ -157,7 +162,7 @@ export default function Poster({
             aspectRatio: "1626 / 278",
           }}
         >
-          <img
+          <Image
             src={data.logo}
             alt={`${language} logo`}
             width={307.57*2}
@@ -177,8 +182,8 @@ export default function Poster({
             aspectRatio: "1 / 1",
           }}
         >
-          <img
-            src={`/icon-logo.png`}
+          <Image
+            src={iconLogo}
             alt={`icon logo`}
             width={86.344*2}
             height={86.344*2}
@@ -380,8 +385,9 @@ export default function Poster({
                   >
                     <div id="zfXu45ydVKUWFUnI">
                       {/* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text */}
-                      <img
+                      <Image
                         src={data.screenshotImage}
+                        alt={'screenshot'}
                         loading="lazy"
                         style={{
                           transform:
@@ -490,8 +496,8 @@ export default function Poster({
             aspectRatio: "439 / 329",
           }}
         >
-          <img
-            src={`/doctor.png`}
+          <Image
+            src={doctorImg}
             alt={`Doctor`}
             // quality={15}
             // fill
