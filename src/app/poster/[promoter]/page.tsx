@@ -78,7 +78,8 @@ function extractDetails(input: string):
 }
 
 const redHatDisplay = Red_Hat_Display({
-  weight: "600"
+  weight: "600",
+  preload: true
 })
 
 export async function generateMetadata(
