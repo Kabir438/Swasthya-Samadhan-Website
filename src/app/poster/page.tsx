@@ -110,35 +110,37 @@ export default function MakePoster() {
             >
               Download Poster
             </Button>
-            <Button
-              type="button"
-              style={{
-                backgroundColor: "#4583ff",
-              }}
-              onClick={async () => {
-                console.log(makePoster(form.getValues()))
-                const response = await fetch(makePoster(form.getValues()));
-                const buffer = await response.arrayBuffer();
+            {navigator.share && navigator.canShare() && (
+              <Button
+                type="button"
+                style={{
+                  backgroundColor: "#4583ff",
+                }}
+                onClick={async () => {
+                  console.log(makePoster(form.getValues()));
+                  const response = await fetch(makePoster(form.getValues()));
+                  const buffer = await response.arrayBuffer();
 
-                const { promoter, language } = form.getValues();
-                const fileName = `${promoter
-                  .charAt(0)
-                  .toUpperCase()}${promoter.substring(1)}'s ${language
-                  .charAt(0)
-                  .toUpperCase()}${language.substring(1)} Poster`;
+                  const { promoter, language } = form.getValues();
+                  const fileName = `${promoter
+                    .charAt(0)
+                    .toUpperCase()}${promoter.substring(1)}'s ${language
+                    .charAt(0)
+                    .toUpperCase()}${language.substring(1)} Poster`;
 
-                const pdf = new File([buffer], fileName, {
-                  type: "application/pdf",
-                });
-                const files = [pdf];
+                  const pdf = new File([buffer], fileName, {
+                    type: "application/pdf",
+                  });
+                  const files = [pdf];
 
-                // Share PDF file if supported.
-                if (navigator.canShare({ files }))
-                  await navigator.share({ files });
-              }}
-            >
-              Share Poster
-            </Button>
+                  // Share PDF file if supported.
+                  if (navigator.canShare({ files }))
+                    await navigator.share({ files });
+                }}
+              >
+                Share Poster
+              </Button>
+            )}
             <div className="overflow-hidden border-gray-700 relative border-[1px] h-10 rounded-[calc(var(--radius)-2px)]">
               <div className="h-full w-[calc(100%-48px)] absolute top-0 left-[4px] overflow-hidden">
                 <span className="h-full flex items-center whitespace-nowrap">
