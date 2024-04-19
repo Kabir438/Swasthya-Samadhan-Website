@@ -233,8 +233,7 @@ export default function Poster({
             MozOsxFontSmoothing: "grayscale",
             textRendering: "geometricPrecision",
             whiteSpace: "normal",
-            fontFamily: "Red Hat Display",
-            fontWeight: "800",
+            fontWeight: "600",
             // ...redHatDisplay.style
           }}
         >
@@ -512,7 +511,6 @@ export default function Poster({
               height: "max-content",
               marginTop: 5,
               lineHeight: 1,
-              fontFamily: "Red Hat Display",
               fontWeight: "700",
               // ...redHatDisplay.style
             }}
@@ -550,7 +548,6 @@ export default function Poster({
             height: "max-content",
             marginTop: 5,
             lineHeight: 1,
-            fontFamily: "Red Hat Display",
             fontWeight: "700"
             // ...redHatDisplay.style
           }}
