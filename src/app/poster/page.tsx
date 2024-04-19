@@ -74,6 +74,8 @@ export default function MakePoster() {
     });
   }
 
+  const n = navigator;
+
   return (
     <main
       className={cn(
@@ -111,7 +113,7 @@ export default function MakePoster() {
             >
               Download Poster
             </Button>
-            {typeof navigator !== 'undefined' && navigator.share && navigator.canShare() && (
+            {n?.share && n?.canShare() && (
               <Button
                 type="button"
                 style={{
