@@ -56,6 +56,7 @@ const makePoster = (data: z.infer<typeof formSchema>, download?: boolean) => {
 
 export default function MakePoster() {
   const [open, setOpen] = useState(false);
+  const [shareLoading, setShareLoading] = useState(false);
   const toast = useToast();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -79,7 +80,7 @@ export default function MakePoster() {
         "flex flex-col items-center justify-center gap-2 w-screen h-screen"
       )}
     >
-      <Dialog open={open} onOpenChange={setOpen}>
+      <Dialog modal open={open} onOpenChange={setOpen}>
         <DialogContent className="sm:max-w-[425px] gap-0">
           <DialogHeader>
             <DialogTitle className="text-4xl text-center">
@@ -110,13 +111,14 @@ export default function MakePoster() {
             >
               Download Poster
             </Button>
-            {navigator.share && navigator.canShare() && (
+            {typeof navigator !== 'undefined' && navigator.share && navigator.canShare() && (
               <Button
                 type="button"
                 style={{
                   backgroundColor: "#4583ff",
                 }}
                 onClick={async () => {
+                  setShareLoading(true)
                   console.log(makePoster(form.getValues()));
                   const response = await fetch(makePoster(form.getValues()));
                   const buffer = await response.arrayBuffer();
@@ -137,8 +139,12 @@ export default function MakePoster() {
                   if (navigator.canShare({ files }))
                     await navigator.share({ files });
                 }}
+                className="flex items-center justify-center gap-2"
               >
                 Share Poster
+                {
+                  shareLoading && <Icon icon='line-md:loading-twotone-loop' width={30}/>
+                }
               </Button>
             )}
             <div className="overflow-hidden border-gray-700 relative border-[1px] h-10 rounded-[calc(var(--radius)-2px)]">
