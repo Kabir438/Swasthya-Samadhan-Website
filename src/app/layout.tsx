@@ -3,9 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import { cn } from "@/utils/cn";
-// import { Poppins } from "next/font/google";
-import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
-import { Partytown } from "@builder.io/partytown/react";
+import { Toaster } from "@/components/ui/toaster";
 
 // const inter = Inter({ subsets: ["latin"] });
 
@@ -30,11 +28,14 @@ export default function RootLayout({
       <body
         className={cn(
           // inter.className,
-          "light text-foreground bg-background",
+          "light text-foreground bg-background"
           // poppins.className
         )}
       >
-        <Providers>{children}</Providers>
+        <Providers>
+          {children} 
+          <Toaster />
+        </Providers>
       </body>
     </html>
   );

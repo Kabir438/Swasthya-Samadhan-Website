@@ -116,7 +116,7 @@ function getData() {
       logo: logos.hindi,
       title: ["आपकी जेब में रहने", "वाला *डॉक्टर*"],
       screenshotImage: screenshots.hindi,
-      scanText: `इस कोड को स्कैन करें और ऐप डाउनलोड करें।.`,
+      scanText: `इस कोड को स्कैन करें और ऐप डाउनलोड करें।`,
     },
     punjabi: {
       logo: logos.punjabi,

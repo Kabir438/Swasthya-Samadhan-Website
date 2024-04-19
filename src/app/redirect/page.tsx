@@ -160,7 +160,7 @@ export default function IndexPage() {
               width={1912 / 5.5}
               height={278 / 5.5}
             />
-            <h1 className="scroll-m-20 text-center text-3xl sm:text-3xl font-extrabold tracking-tight lg:text-4xl">
+            <h1 className="scroll-m-20 text-center text-3xl sm:text-3xl font-bold tracking-tight lg:text-4xl">
               Download Swasthya Samadhan
             </h1>
           </CardHeader>
