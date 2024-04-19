@@ -493,7 +493,7 @@ export default function Poster({
         {language !== "english" && (
           <h2
             className={cn(
-              "absolute left-[50%] w-[180px] right-[50%] text-center -translate-x-[50%] -translate-y-[50%]"
+              "absolute left-[50%] w-max right-[50%] text-center -translate-x-[50%] -translate-y-[50%]"
             )}
             style={{
               top: "50%",
