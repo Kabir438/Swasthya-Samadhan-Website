@@ -74,7 +74,13 @@ export default function MakePoster() {
     });
   }
 
-  const n = navigator;
+  const n = typeof window !== 'undefined' ? window.navigator : {
+    canShare: () => true,
+    share: () => {},
+  } as {
+    canShare: () => boolean,
+    share?: () => void
+  };
 
   return (
     <main
