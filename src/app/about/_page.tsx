@@ -24,8 +24,8 @@ export default function About() {
           revealText="We want some credit"
         ></TextRevealCard>
         <div className="flex flex-wrap items-center justify-center gap-7 pb-44 px-10">
-          {members.map((member) => (
-            <PinContainer key={member.name} title="kabir-chawla.com" href={"https://kabir-chawla.com"} enabled={!!member.link}>
+          {members(!isDesktop).map((member) => (
+            <PinContainer key={member.name} className={"md:order-[initial]" + member.scale ?  "order-first" : ""} title="kabir-chawla.com" href={"https://kabir-chawla.com"} enabled={!!member.link}>
               <CardContainer className={cn("w-[22rem]", member.link ? "hover:grayscale-[1] relative -top-[15px] group-[.active]/card:cursor-pointer group-[.active]/card:grayscale-[1]" : "")}>
                 <CardBody className="bg-gray-50 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[30rem] h-auto rounded-xl p-6 border  ">
                   <CardItem translateZ="100" className="w-full">
@@ -112,8 +112,8 @@ export default function About() {
   );
 }
 
-const members = [
-  {
+const members = (mobile?: boolean) => [
+  ...[{
     name: "Zubin Dhar",
     title: "Chief Marketing Officer",
     image: "/people/kabir.png",
@@ -126,7 +126,7 @@ const members = [
     alt: "Kabir's Profile",
     link: "https://kabir-chawla.com" as string | undefined,
     scale: true
-  },
+  }][mobile ? 'reverse' : 'sort'](),
   {
     name: "Nanda Karumudi",
     title: "Chief Information Officer",
