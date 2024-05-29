@@ -11,7 +11,7 @@ export const BentoGridTemplate = ({
   return (
     <div
       className={cn(
-        "grid md:auto-rows-[18rem] grid-cols-1 md:grid-cols-3 gap-4 max-w-7xl mx-auto ",
+        "grid md:auto-rows-[18rem] [grid-template-rows:minmax(80px,auto)] grid-cols-1 lg:grid-cols-3 gap-4 max-w-7xl mx-auto ",
         className
       )}
       id="cards"
@@ -42,6 +42,10 @@ export const BentoGridItem = ({
         "row-span-1 rounded-xl group/bento p-[2px] hover:shadow-xl transition duration-200 justify-between card flex flex-col space-y-4 shadow-input dark:shadow-none dark:bg-black dark:border-transparent bg-white border-transparent",
         className
       )}
+      style={{
+        '--mouse-x': "0px",
+        '--mouse-y': "0px",
+      } as any}
     >
       <div className="justify-between p-4 card-content !bg-black flex flex-col space-y-4">
         <div className="before" />

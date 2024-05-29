@@ -10,7 +10,7 @@ export default function IOS(props: React.SVGProps<SVGSVGElement>) {
       width="135px"
       height="40px"
       viewBox="0 0 135 40"
-      enable-background="new 0 0 135 40"
+      enableBackground="new 0 0 135 40"
       xmlSpace="preserve"
       {...props}
     >

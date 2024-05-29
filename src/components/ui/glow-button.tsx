@@ -47,7 +47,7 @@ const GlowButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <Comp
         className={cn(
           buttonVariants({ variant, size, className }),
-          "glow-button hover:bg-[rgba(221,88,88,0.1)]"
+          "glow-button sm:w-auto w-full hover:bg-[rgba(221,88,88,0.1)]"
         )}
         ref={ref}
         {...props}

@@ -4,24 +4,23 @@ import React, { useCallback, useEffect } from "react";
 import { BentoGridTemplate, BentoGridItem } from "./template";
 import {
   IconAccessible,
-  IconAccessibleFilled,
-  IconAnalyze,
-  IconAnalyzeFilled,
-  IconBoxAlignRightFilled,
   IconBuildingHospital,
-  IconClipboardCopy,
-  IconFileBroken,
   IconHeartbeat,
-  IconMedicalCrossFilled,
   IconReportAnalytics,
-  IconSignature,
-  IconTableColumn,
 } from "@tabler/icons-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Veterinary from "../icons/veterinary";
 import Hospital from "../icons/hospital";
 import Doctor from "../icons/doctor";
+import useMediaQuery from "@/hooks/useMediaQuery";
+import { useScroll } from "@react-three/drei";
+
+export const useGetBentoSize = () => {
+  const lg = useMediaQuery("(min-width: 1024px)")
+  const md = useMediaQuery("(min-width: 768px)")
+  return lg ? 816 : md ? 1_152 : 1_738
+}
 
 export default function BentoGrid() {
   const eventListener = useCallback((e: MouseEvent) => {
@@ -46,28 +45,30 @@ export default function BentoGrid() {
     };
   }, [eventListener]);
   return (
-    <BentoGridTemplate className="max-w-4xl md:auto-rows-[20rem]">
-      <h1
-        className="col-span-3 text-7xl font-bold row-span-1 mx-auto"
-        style={{
-          width: "100%",
-          height: "max-content",
-          placeSelf: "flex-end",
-        }}
-      >
-        Features
-      </h1>
-      {items.map((item, i) => (
-        <BentoGridItem
-          key={i}
-          title={item.title}
-          description={item.description}
-          header={item.header}
-          className={cn("[&>p:text-lg]", item.className, "card")}
-          icon={item.icon}
-        />
-      ))}
-    </BentoGridTemplate>
+    <div id="features" className="w-screen min-h-[816px] h-fit max-h-max bg-transparent py-8 px-6 flex flex-col items-start justify-center">
+      <BentoGridTemplate className="max-w-4xl md:auto-rows-[20rem]">
+        <h1
+          className="col-span-1 md:col-span-2 lg:col-span-3 text-7xl font-bold row-span-1 mx-auto"
+          style={{
+            width: "100%",
+            height: "max-content",
+            placeSelf: "flex-end",
+          }}
+        >
+          Features
+        </h1>
+        {items.map((item, i) => (
+          <BentoGridItem
+            key={i}
+            title={item.title}
+            description={item.description}
+            header={item.header}
+            className={cn("[&>p:text-lg]", item.className, "card")}
+            icon={item.icon}
+          />
+        ))}
+      </BentoGridTemplate>
+    </div>
   );
 }
 
@@ -105,7 +106,7 @@ const SkeletonOne = () => {
     >
       <motion.div
         variants={variants}
-        className="flex flex-row rounded-full border border-neutral-100 dark:border-white/[0.2] p-2  items-center space-x-2 bg-white dark:bg-black"
+        className="flex flex-row rounded-full border border-neutral-100 dark:border-white/[0.2] p-2  items-center space-x-2 bg-white dark:bg-transparent"
       >
         <div
           className={"h-6 w-6 rounded-full"}
@@ -120,7 +121,7 @@ const SkeletonOne = () => {
       </motion.div>
       <motion.div
         variants={variantsSecond}
-        className="flex flex-row rounded-full border border-neutral-100 dark:border-white/[0.2] p-2 items-center space-x-2 w-3/4 ml-auto bg-white dark:bg-black"
+        className="flex flex-row rounded-full border border-neutral-100 dark:border-white/[0.2] p-2 items-center space-x-2 w-3/4 ml-auto bg-white dark:bg-transparent"
       >
         <div className="w-full bg-gray-100 h-4 rounded-full dark:bg-neutral-900" />
         <div
@@ -135,7 +136,7 @@ const SkeletonOne = () => {
       </motion.div>
       <motion.div
         variants={variants}
-        className="flex flex-row rounded-full border border-neutral-100 dark:border-white/[0.2] p-2 items-center space-x-2 bg-white dark:bg-black"
+        className="flex flex-row rounded-full border border-neutral-100 dark:border-white/[0.2] p-2 items-center space-x-2 bg-white dark:bg-transparent"
       >
         <div
           className="h-6 w-6 rounded-full bg-gradient-to-r from-pink-500 to-violet-500 flex-shrink-0"
@@ -212,7 +213,7 @@ const SkeletonTwo = () => {
           style={{
             maxWidth: i === 1 ? "80%" : "100%",
           }}
-          className="flex overflow-hidden flex-row rounded-xl border border-neutral-100 dark:border-white/[0.2] p-2  items-center space-x-2 bg-neutral-100 dark:bg-black w-full h-16"
+          className="flex overflow-hidden flex-row rounded-xl border border-neutral-100 dark:border-white/[0.2] p-2  items-center space-x-2 bg-neutral-100 dark:bg-transparent w-full h-16"
         >
           <div className="w-12 grid place-items-center min-w-12">
             {
@@ -288,7 +289,7 @@ const SkeletonFour = () => {
     >
       <motion.div
         variants={first}
-        className="h-full w-1/3 rounded-2xl bg-white p-4 dark:bg-black dark:border-white/[0.1] border border-neutral-200 flex flex-col items-center justify-center"
+        className="h-full w-1/3 rounded-2xl bg-white p-4 dark:bg-transparent dark:border-white/[0.1] border border-neutral-200 flex flex-col items-center justify-center"
       >
         <Image
           src="/person-2.jpeg"
@@ -304,7 +305,7 @@ const SkeletonFour = () => {
           Emergency
         </p>
       </motion.div>
-      <motion.div className="h-full relative z-20 w-1/3 rounded-2xl bg-white p-4 dark:bg-black dark:border-white/[0.1] border border-neutral-200 flex flex-col items-center justify-center">
+      <motion.div className="h-full relative z-20 w-1/3 rounded-2xl bg-white p-4 dark:bg-transparent dark:border-white/[0.1] border border-neutral-200 flex flex-col items-center justify-center">
         <Image
           src="/person-3.jpeg"
           alt="avatar"
@@ -321,7 +322,7 @@ const SkeletonFour = () => {
       </motion.div>
       <motion.div
         variants={second}
-        className="h-full w-1/3 rounded-2xl bg-white p-4 dark:bg-black dark:border-white/[0.1] border border-neutral-200 flex flex-col items-center justify-center"
+        className="h-full w-1/3 rounded-2xl bg-white p-4 dark:bg-transparent dark:border-white/[0.1] border border-neutral-200 flex flex-col items-center justify-center"
       >
         <Image
           src="/person-4.jpeg"
@@ -374,7 +375,7 @@ const SkeletonFive = () => {
     >
       <motion.div
         variants={variants}
-        className="flex flex-row rounded-2xl border border-neutral-100 dark:border-white/[0.2] p-2  items-start space-x-2 bg-white dark:bg-black"
+        className="flex flex-row rounded-2xl border border-neutral-100 dark:border-white/[0.2] p-2  items-start space-x-2 bg-white dark:bg-transparent"
       >
         <Image
           src="/person-5.jpeg"
@@ -389,7 +390,7 @@ const SkeletonFive = () => {
       </motion.div>
       <motion.div
         variants={variantsSecond}
-        className="flex flex-row rounded-full border border-neutral-100 dark:border-white/[0.2] p-2 items-center justify-end space-x-2 w-3/4 ml-auto bg-white dark:bg-black"
+        className="flex flex-row rounded-full border border-neutral-100 dark:border-white/[0.2] p-2 items-center justify-end space-x-2 w-3/4 ml-auto bg-white dark:bg-transparent"
       >
         <p className="text-xs text-neutral-500">Make it simple.</p>
         <div
@@ -434,7 +435,7 @@ const items = [
       <span className="text-sm">Get AI-powered doctor recommendations.</span>
     ),
     header: <SkeletonThree />,
-    className: "md:col-span-1",
+    className: "md:hidden lg:flex",
     icon: <Doctor className="h-4 scale-[1.5] w-4 text-red-400" />,
   },
   {
@@ -455,5 +456,14 @@ const items = [
     header: <SkeletonFive />,
     className: "md:col-span-1",
     icon: <IconAccessible className="h-4 w-4 text-red-400" />,
+  },
+  {
+    title: "Doctor Recommendation",
+    description: (
+      <span className="text-sm">Get AI-powered doctor recommendations.</span>
+    ),
+    header: <SkeletonThree />,
+    className: "hidden md:flex lg:hidden",
+    icon: <Doctor className="h-4 scale-[1.5] w-4 text-red-400" />,
   },
 ];

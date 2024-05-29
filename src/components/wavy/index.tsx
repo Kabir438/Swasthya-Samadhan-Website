@@ -1,4 +1,5 @@
 "use client";
+import useMediaQuery from "@/hooks/useMediaQuery";
 import { cn } from "@/utils/cn";
 import React, { useEffect, useRef, useState } from "react";
 import { createNoise3D } from "simplex-noise";
@@ -26,6 +27,8 @@ import { createNoise3D } from "simplex-noise";
   waveOpacity?: number;
   [key: string]: any;
 }) => {
+  const small = useMediaQuery("(max-width: 865px)");
+  const smaller = useMediaQuery("(max-width: 490px)");
   const noise = createNoise3D();
   let w: number,
     h: number,
@@ -97,6 +100,7 @@ import { createNoise3D } from "simplex-noise";
     return () => {
       cancelAnimationFrame(animationId);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [isSafari, setIsSafari] = useState(false);
@@ -117,7 +121,7 @@ import { createNoise3D } from "simplex-noise";
       )}
     >
       <canvas
-        className="absolute inset-0 z-0"
+        className={cn("absolute inset-0 z-0", smaller ? "scale-y-75" : (small ? "scale-y-90" : ""))}
         ref={canvasRef}
         id="canvas"
         style={{

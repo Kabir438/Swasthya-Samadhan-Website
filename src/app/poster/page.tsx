@@ -165,7 +165,7 @@ export default function MakePoster() {
               </div>
               <button
                 onClick={() => copyText(makePoster(form.getValues()))}
-                className="bg-black absolute top-0 right-0 grid place-items-center h-full aspect-square"
+                className="bg-transparent absolute top-0 right-0 grid place-items-center h-full aspect-square"
               >
                 <Icon icon="uiw:copy" color="white" />
               </button>

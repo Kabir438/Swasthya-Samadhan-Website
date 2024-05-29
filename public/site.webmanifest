@@ -1,0 +1,31 @@
+{
+  "lang": "en",
+  "dir": "ltr",
+  "name": "Swasthya Samadhan",
+  "short_name": "Swasthya Samadhan",
+  "icons": [
+    {
+      "src": "favicon/favicon-32x32.png",
+      "sizes": "32x32"
+    },
+    {
+      "src": "favicon/favicon-16x16.png",
+      "sizes": "64x64"
+    },
+    {
+      "src": "favicon/icon.png",
+      "sizes": "1080x1080"
+    },
+    {
+      "src": "favicon/apple-touch-icon.png",
+      "sizes": "180x180"
+    }
+  ],
+  "scope": "/",
+  "id": "swasthyasamadhan",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "landscape",
+  "theme_color": "#ff8a97",
+  "background_color": "black"
+}

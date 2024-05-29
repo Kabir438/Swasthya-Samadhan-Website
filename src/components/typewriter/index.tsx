@@ -1,6 +1,10 @@
-import { MutableRefObject, useEffect, useState } from "react";
+import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { useScroll } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
+import useMediaQuery from "@/hooks/useMediaQuery";
+import useMount from "@/hooks/useMount";
 
 const phrases = [
   "Use the app in English!",
@@ -13,9 +17,12 @@ const phrases = [
   "Use the app in English, Hindi, Punjabi,",
   "Use the app in English, Hindi, Punjabi, Gujarati, and Bangla!",
   "Use the app in English, Hindi, Punjabi, Gujarati,",
-  "Use the app in English, Hindi, Punjabi, Gujarati, Bangla, and Telugu!",
-];
-const generateTypewriterEffect = (phrases: string[]) => {
+  "Use the app in English, Hindi, Punjabi, Gujarati, Bangla and Telugu!",
+] as const;
+
+const mobilePhrases = ["", phrases[phrases.length - 1]]
+
+const generateTypewriterEffect = (phrases: Readonly<string[]>) => {
   const processedPhrases: string[] = [];
 
   phrases.forEach((phrase, index, arr) => {
@@ -55,28 +62,28 @@ const generateTypewriterEffect = (phrases: string[]) => {
     }
   });
 
+  console.log(processedPhrases);
   return processedPhrases;
 };
 
 const processedPhrases = generateTypewriterEffect(phrases);
+const processedMobilePhrases = generateTypewriterEffect(mobilePhrases);
 
-const Typewriter = ({
-  start,
-  started,
-}: {
-  start: boolean;
-  started: MutableRefObject<boolean>;
-}) => {
+const Typewriter = () => {
+  const complexAnimation = useMediaQuery("(max-width: 768px)");
+  const [start, setStart] = useState(false);
+  const started = useRef(false);
+  const fired = useRef(false);
   const [index, setIndex] = useState(0);
+  const typewriterRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
     let interval: null | NodeJS.Timeout = null;
     if (start && !started.current) {
       started.current = true;
-      console.log();
       interval = setInterval(() => {
         setIndex((index) => {
-          if (index === processedPhrases.length - 1) {
+          if (index === (complexAnimation ? processedMobilePhrases : processedPhrases).length - 1) {
             interval && clearInterval(interval);
             return index;
           }
@@ -88,9 +95,34 @@ const Typewriter = ({
       interval && clearInterval(interval);
     };
   }, [start, started]);
+
+  const scroll = useScroll();
+
+  useEffect(() => {
+    const scrollBox =
+      document.querySelector(".hi")?.parentElement?.parentElement;
+    console.log(scrollBox);
+    scrollBox?.addEventListener("scroll", () => {
+      if (!typewriterRef.current) return;
+      if (
+        -(
+          typewriterRef.current as Exclude<typeof typewriterRef.current, null>
+        ).getBoundingClientRect().y +
+          window.innerHeight >=
+          300 &&
+        !fired.current
+      ) {
+        // console.log("setstart");
+        setStart(true);
+        fired.current = true;
+      }
+    });
+  }, [complexAnimation]);
+
   return (
     <h1
       id="typewriter"
+      ref={typewriterRef}
       style={{
         fontSize: "41px",
         textAlign: "center",
@@ -98,22 +130,10 @@ const Typewriter = ({
         lineHeight: "47px",
         overflow: "hidden",
         letterSpacing: "-0.3px",
-        height: "144px",
       }}
-      className="px-6"
+      className="px-6 h-max sm:h-[196px]"
     >
-      {processedPhrases[index]}
-      {/* <motion.span
-        style={{
-          width: "4px",
-          height: "32px",
-          display: "inline-block",
-          background: "linear-gradient(180deg, #ff9e9e -12%, #f7405e 73%)",
-          marginLeft: "2px",
-          borderRadius: "1.4px",
-          opacity: 1,
-        }}
-      ></motion.span> */}
+      {(complexAnimation ? processedMobilePhrases : processedPhrases)[index]}
       <motion.span
         initial={{
           opacity: 0,

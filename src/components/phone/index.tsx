@@ -16,7 +16,7 @@ const springConfig = {
   damping: 2,
   // restDelta: 2,
 };
-export function useSmooth(source: MotionValue) {
+export function useSmooth<T>(source: MotionValue<T>): MotionValue<T> {
   return useSpring(source, springConfig);
   return source;
 }
@@ -91,7 +91,7 @@ export default function Phone({
   // const initialPowerButtonTransform = useMemo(() => (`rotateY(${33}deg) rotateZ(${1}deg) translate3d(${1}px, ${-162}px, ${1}px) skew(${1}deg, ${1}deg)`), [])
   return (
     <motion.div
-      className="bg-red-400"
+      // className="bg-red-400"
       style={{
         position: "relative",
         boxSizing: "content-box",
@@ -112,7 +112,7 @@ export default function Phone({
       }}
       layout
     >
-      {/* <motion.div
+      <motion.div
         className="absolute right-1/2 z-[2] grid place-items-center"
         initial={{
           scaleX: 1,
@@ -173,7 +173,7 @@ export default function Phone({
           className="grid place-items-center relative"
         >
           <div
-            className="notch z-[1] bg-black absolute left-[50%] top-0 -translate-x-[50%]"
+            className="notch z-[1] bg-transparent absolute left-[50%] top-0 -translate-x-[50%]"
             style={{
               width: `${notchWidth}px`,
               height: `${notchHeight}px`,
@@ -225,7 +225,7 @@ export default function Phone({
             {children}
           </div>
         </div>
-      </motion.div> */}
+      </motion.div>
     </motion.div>
   );
 }

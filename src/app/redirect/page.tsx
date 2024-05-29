@@ -42,6 +42,9 @@ export default function IndexPage() {
   >("loading");
   const [multiplicant, setMultiplicant] = useState<1 | 2 | 3>(1);
   useMount(() => {
+    document.body.classList.remove("dark");
+    document.body.classList.remove("bg-background");
+    document.body.classList.add("bg-white");
     const promoter = new URLSearchParams(window.location.search).get(
       "promoter"
     );
@@ -59,8 +62,8 @@ export default function IndexPage() {
       setAppState("ios");
     } else if (os === "android") {
       setAppState("redirect");
-      if(process.env.NEXT_PUBLIC_ANDROID_LINK) {
-        window.location.href = process.env.NEXT_PUBLIC_ANDROID_LINK
+      if (process.env.NEXT_PUBLIC_ANDROID_LINK) {
+        window.location.href = process.env.NEXT_PUBLIC_ANDROID_LINK;
       }
     } else {
       setAppState("options");
@@ -74,7 +77,7 @@ export default function IndexPage() {
     }
 
     getDoc(doc(db, `promoters/${promoter}`)).then((data) => {
-      if(Cookies.get("analytics")) return;
+      if (Cookies.get("analytics")) return;
       if (data.exists()) {
         updateDoc(doc(db, `promoters/${promoter}`), {
           count: increment(1),
@@ -166,6 +169,7 @@ export default function IndexPage() {
           </CardHeader>
           <CardContent className="flex flex-col items-center justify-center gap-5 p-0">
             <a
+              rel="noreferrer"
               href={process.env.NEXT_PUBLIC_ANDROID_LINK}
               className="w-full h-20 justify-start"
             >

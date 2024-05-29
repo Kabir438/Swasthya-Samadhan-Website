@@ -200,7 +200,7 @@ body {
 html {
   width: 100vw;
   overflow-x: hidden;
-  scroll-behavior: smooth;
+  /* scroll-behavior: smooth; */
 }
 
 * {
@@ -458,7 +458,7 @@ html {
   position: relative;
   display: flex;
   flex-direction: column;
-  width: max-content;
+  width: 100%;
   padding: var(--size-sm) var(--size-default);
   border-radius: 100px;
   color: var(--color-pink);
@@ -542,4 +542,46 @@ html {
   background: #ff6589;
   background: #ff6363;
   background: #ff7182;
+}
+
+.ham {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 400ms;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: #ff909d;
+}
+
+.ham .line {
+  fill:none;
+  transition: stroke-dasharray 400ms, stroke-dashoffset 400ms;
+  stroke: #ff909d;
+  stroke-width:5.5;
+  stroke-linecap:round;
+}
+.ham3 .top {
+  stroke-dasharray: 40 130;
+  stroke: #ff909d;
+}
+.ham3 .middle {
+  stroke-dasharray: 40 140;
+  stroke: #ff909d;
+}
+.ham3 .bottom {
+  stroke-dasharray: 40 205;
+  stroke: #ff909d;
+}
+.ham3.active .top {
+  stroke-dasharray: 75 130;
+  stroke-dashoffset: -63px;
+}
+.ham3.active .middle {
+  stroke-dashoffset: -102px;
+}
+.ham3.active .bottom {
+  stroke-dasharray: 110 205;
+  stroke-dashoffset: -86px;
 }

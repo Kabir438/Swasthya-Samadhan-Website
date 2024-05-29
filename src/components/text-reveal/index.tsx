@@ -7,12 +7,10 @@ import { cn } from "@/utils/cn";
 export const TextRevealCard = ({
   text,
   revealText,
-  children,
   className,
 }: {
   text: string;
   revealText: string;
-  children?: React.ReactNode;
   className?: string;
 }) => {
   const [widthPercentage, setWidthPercentage] = useState(0);
@@ -52,7 +50,7 @@ export const TextRevealCard = ({
     const clientX = event.touches[0]!.clientX;
     if (cardRef.current) {
       const relativeX = clientX - left;
-      setWidthPercentage((relativeX / localWidth) * 100);
+      setWidthPercentage((relativeX / localWidth + 0.15) * 100);
     }
   }
 
@@ -67,11 +65,10 @@ export const TextRevealCard = ({
       onTouchMove={touchMoveHandler}
       ref={cardRef}
       className={cn(
-        "rounded-lg p-8 relative overflow-hidden",
+        "sm:w-[30rem] md:w-[60rem] bg-black p-8 relative overflow-hidden",
         className
       )}
     >
-      {children}
 
       <div className="h-40  relative flex items-center overflow-hidden">
         <motion.div
@@ -89,13 +86,13 @@ export const TextRevealCard = ({
                 }
           }
           transition={isMouseOver ? { duration: 0 } : { duration: 0.4 }}
-          className="absolute bg-black z-20  will-change-transform"
+          className="absolute bg-[#000000] z-20  will-change-transform"
         >
           <p
             style={{
               textShadow: "4px 4px 15px rgba(0,0,0,0.5)",
             }}
-            className="text-2xl sm:text-[5rem] py-10 font-bold text-white bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-300"
+            className="lg:text-7xl md:text-6xl text-5xl sm:text-5xl py-10 font-bold text-white bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-300"
           >
             {revealText}
           </p>
@@ -110,8 +107,8 @@ export const TextRevealCard = ({
           className="h-40 w-[8px] bg-gradient-to-b from-transparent via-neutral-800 to-transparent absolute z-50 will-change-transform"
         ></motion.div>
 
-        <div className=" overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,white,transparent)]">
-          <p className="text-2xl sm:text-[5rem] py-10 font-bold bg-clip-text text-white bg-[#323238]">
+        <div className="overflow-hidden [mask-image:linear-gradient(to_bottom,#ffffff9e,white,#ffffff9e)]">
+          <p className="lg:text-7xl md:text-6xl text-5xl sm:text-5xl py-10 font-bold bg-clip-text text-transparent bg-[#ffe9ed]">
             {text}
           </p>
           <MemoizedStars />
@@ -153,7 +150,7 @@ const Stars = () => {
   const random = () => Math.random();
   return (
     <div className="absolute inset-0">
-      {[...Array(140)].map((_, i) => (
+      {[...Array(80)].map((_, i) => (
         <motion.span
           key={`star-${i}`}
           animate={{
