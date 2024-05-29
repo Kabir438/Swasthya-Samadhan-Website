@@ -136,7 +136,7 @@ export default function Header() {
           <Link
             rel="noreferrer"
             className="flex items-center z-[1] transition-colors hover:text-gray-500 dark:hover:text-gray-400"
-            href="#"
+            href="/"
           >
             Home
           </Link>

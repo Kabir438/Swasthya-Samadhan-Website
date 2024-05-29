@@ -1,3 +1,4 @@
+"use client"
 import Pellet from "@/app/_phone/pellet";
 import { cn } from "@/utils/cn";
 import { Icon } from "@iconify/react/dist/iconify.js";
@@ -22,7 +23,7 @@ import useMediaQuery from "@/hooks/useMediaQuery";
 
 export const DESKTOP_FOOTER_HEIGHT = 384;
 export const MOBILE_FOOTER_HEIGHT = 524;
-const socialMediaIcons: {
+export const socialMediaIcons: {
   name: string;
   icon: (props: SVGProps<SVGSVGElement>) => React.ReactNode;
   props?: SVGProps<SVGSVGElement>;
@@ -67,7 +68,13 @@ const socialMediaIcons: {
   },
 ];
 
-export default function Footer() {
+const simplefunc = (children: React.ReactNode) => children
+
+export default function Footer({
+  simple
+}: {
+  simple?: boolean
+}) {
   const [actualFooter, setActualFooter] = useState<HTMLDivElement | null>(null);
   const isDesktop = useMediaQuery("(min-width: 625px)");
   const { scene } = useGLTF("/models/pellet/pellet.gltf");
@@ -86,7 +93,7 @@ export default function Footer() {
         ref={(el) => setActualFooter(el)}
       ></div>
       {slot &&
-        createPortal(
+        (simple ? simplefunc : createPortal)(
           <footer
             id="actual-footer"
             className={cn(
