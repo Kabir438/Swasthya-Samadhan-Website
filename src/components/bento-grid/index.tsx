@@ -127,7 +127,7 @@ const SkeletonOne = () => {
         <div
           className="h-6 w-6 rounded-full bg-gradient-to-r from-pink-500 to-violet-500 flex-shrink-0"
           style={{
-            backgroundImage: 'url("person-1.jpeg")',
+            backgroundImage: 'url("person-1.png")',
             backgroundSize: "100%",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
@@ -292,7 +292,7 @@ const SkeletonFour = () => {
         className="h-full w-1/3 rounded-2xl bg-white p-4 dark:bg-transparent dark:border-white/[0.1] border border-neutral-200 flex flex-col items-center justify-center"
       >
         <Image
-          src="/person-2.jpeg"
+          src="/person-2.png"
           alt="avatar"
           height="100"
           width="100"
@@ -307,7 +307,7 @@ const SkeletonFour = () => {
       </motion.div>
       <motion.div className="h-full relative z-20 w-1/3 rounded-2xl bg-white p-4 dark:bg-transparent dark:border-white/[0.1] border border-neutral-200 flex flex-col items-center justify-center">
         <Image
-          src="/person-3.jpeg"
+          src="/person-3.png"
           alt="avatar"
           height="100"
           width="100"
@@ -325,7 +325,7 @@ const SkeletonFour = () => {
         className="h-full w-1/3 rounded-2xl bg-white p-4 dark:bg-transparent dark:border-white/[0.1] border border-neutral-200 flex flex-col items-center justify-center"
       >
         <Image
-          src="/person-4.jpeg"
+          src="/person-4.png"
           alt="avatar"
           height="100"
           width="100"
@@ -378,7 +378,7 @@ const SkeletonFive = () => {
         className="flex flex-row rounded-2xl border border-neutral-100 dark:border-white/[0.2] p-2  items-start space-x-2 bg-white dark:bg-transparent"
       >
         <Image
-          src="/person-5.jpeg"
+          src="/person-5.png"
           alt="avatar"
           height="100"
           width="100"

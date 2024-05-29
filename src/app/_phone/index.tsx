@@ -74,7 +74,7 @@ export default function Phone() {
     tl.current?.seek(scroll.range(0, complexAnimation ? 0.34 : 0.25) * tl.current?.duration());
     // console.log(scroll.offset);
     if (scroll.range(0, complexAnimation ? 0.37 : 0.25) === 1) {
-      phoneRef.current?.position.setY((complexAnimation ? 0.7 : 0.6) * scroll.range(complexAnimation ? 0.37 : 0.25, 1) * height - 0.2 * (complexAnimation ? 1 : 0));
+      phoneRef.current?.position.setY((complexAnimation ? 0.9 : 0.6) * scroll.range(complexAnimation ? 0.37 : 0.25, 1) * height - 0.2 * (complexAnimation ? 1 : 0));
     } else if (!complexAnimation && scroll.range(0, complexAnimation ? 0.37 : 0.25) < 1) {
       console.log(complexAnimation)
       phoneRef.current?.position.setY(0);

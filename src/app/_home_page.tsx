@@ -24,6 +24,7 @@ import {
   Environment,
   Html,
   Loader,
+  PerformanceMonitor,
   PerspectiveCamera,
   Scroll,
   ScrollControls,
@@ -48,6 +49,7 @@ const BentoGrid = dynamic(() => import("@/components/bento-grid"));
 const LampContainer = dynamic(() => import("@/components/ui/lamp"));
 
 export default function Home() {
+  const [dpr, setDpr] = useState(1.2);
   const mainRef = useRef<HTMLDivElement>(null);
   const isDesktop = useMediaQuery("(min-width: 625px)");
   const bentoSectionHeight = useGetBentoSize();
@@ -75,7 +77,7 @@ export default function Home() {
         }}
         // frameloop="demand"
         // shadows
-        // dpr={[4, 4.15]}
+        dpr={[1, 1.15]}
         camera={{
           zoom: 6.5,
           bottom: 60,
@@ -83,145 +85,152 @@ export default function Home() {
           fov: 80,
         }}
       >
-        <ScrollControls
-          // enabled
-          pages={
-            3 +
-            0.5 * (verticalLamp ? 1 : 0) +
-            bentoSectionHeight / viewport.height +
-            (64 + (isDesktop ? DESKTOP_FOOTER_HEIGHT : MOBILE_FOOTER_HEIGHT)) /
-              viewport.height
+        <PerformanceMonitor
+          onChange={({ factor }) =>
+            setDpr(Number((0.5 + 1.5 * factor).toPrecision(2)))
           }
         >
-          <Phone />
-          {/* @ts-ignore */}
-          <Scroll html className="hi">
-            <main
-              ref={mainRef}
-              className={cn(
-                "end-scroll px-4 md:px-0 lg:px-4 md:pr-12 sm:px-8 min-h-[250vh] sm:min-h-[200vh] max-h-max md:max-h-[200vh] md:flex-row flex-col justify-between pb-0 flex items-stretch overflow-hidden bg-transparent"
-              )}
-            >
-              {/* Left Side */}
-              <div className="flex flex-col items-center md:items-start lg:items-center space-between h-full lg:w-1/2 md:w-3/4">
-                {/* Top Left */}
-                <div
-                  className="flex flex-col items-center sm:items-start pl-0 lg:pl-0 md:pl-12 md:max-h-none md:px-0 px-5 min-h-[calc(100vh-64px)] md:min-h-screen w-min sm:w-full md:w-auto justify-end pb-16 lg:pb-0 md:justify-center"
-                  style={
-                    {
-                      // boxShadow: "0px 0px 55px 20px black",
-                    }
-                  }
-                >
-                  <Link
-                    rel="noreferrer"
-                    href={"/redirect?promoter=website_front_page"}
-                    className="relative sm:shadow-[initial] !shadow-none z-[6] self-start sm:self-auto underline w-max"
-                    style={{
-                      textDecorationSkipInk: "all",
-                      textDecorationThickness: "1px",
-                      textUnderlineOffset: "1.5px",
-                      boxShadow: "black 2px -22px 20px 20px",
-                      // background: "black",
-                    }}
-                  >
-                    <span
-                      className=""
-                      style={{
-                        color: "#cccccc",
-                        background:
-                          "linear-gradient(90deg, #7c7c7c, #d3d3d3, #7c7c7c)",
-                        backgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                      }}
-                    >
-                      Download the app now
-                    </span>
-                  </Link>
+          <ScrollControls
+            // enabled
+            pages={
+              3 +
+              0.5 * (verticalLamp ? 1 : 0) +
+              bentoSectionHeight / viewport.height +
+              (64 +
+                (isDesktop ? DESKTOP_FOOTER_HEIGHT : MOBILE_FOOTER_HEIGHT)) /
+                viewport.height
+            }
+          >
+            <Phone />
+            {/* @ts-ignore */}
+            <Scroll html className="hi">
+              <main
+                ref={mainRef}
+                className={cn(
+                  "end-scroll px-4 md:px-0 lg:px-4 md:pr-12 sm:px-8 min-h-[250vh] sm:min-h-[200vh] max-h-max md:max-h-[200vh] md:flex-row flex-col justify-between pb-0 flex items-stretch overflow-hidden bg-transparent"
+                )}
+              >
+                {/* Left Side */}
+                <div className="flex flex-col items-center md:items-start lg:items-center space-between h-full lg:w-1/2 md:w-3/4">
+                  {/* Top Left */}
                   <div
-                    className="md:mr-6 w-max md:w-auto flex flex-col items-start relative z-[5] justify-between gap-2"
+                    className="flex flex-col items-center sm:items-start pl-0 lg:pl-0 md:pl-12 md:max-h-none md:px-0 px-5 min-h-[calc(100vh-64px)] md:min-h-screen w-min sm:w-full md:w-auto justify-end pb-16 lg:pb-0 md:justify-center"
                     style={
                       {
-                        // boxShadow:
-                        //   "20px 0px 55px 0px black, -20px 0px 55px 0px black",
-                        // background: "black",
+                        // boxShadow: "0px 0px 55px 20px black",
                       }
                     }
                   >
-                    <h1
-                      className={cn(
-                        "z-[1] text-center sm:text-left sm:text-6xl md:text-7xl text-5xl relative",
-                        poppins.className
-                      )}
+                    <Link
+                      rel="noreferrer"
+                      href={"/redirect?promoter=website_front_page"}
+                      className="relative sm:shadow-[initial] !shadow-none z-[6] self-start sm:self-auto underline w-max"
+                      style={{
+                        textDecorationSkipInk: "all",
+                        textDecorationThickness: "1px",
+                        textUnderlineOffset: "1.5px",
+                        boxShadow: "black 2px -22px 20px 20px",
+                        // background: "black",
+                      }}
                     >
-                      Your Health
-                      <span className="text-[#ff8a97]">,</span>
-                    </h1>
-                    <h2
-                      className={cn(
-                        "z-[1] sm:text-6xl md:text-7xl text-5xl relative",
-                        poppins.className
-                      )}
+                      <span
+                        className=""
+                        style={{
+                          color: "#cccccc",
+                          background:
+                            "linear-gradient(90deg, #7c7c7c, #d3d3d3, #7c7c7c)",
+                          backgroundClip: "text",
+                          WebkitTextFillColor: "transparent",
+                        }}
+                      >
+                        Download the app now
+                      </span>
+                    </Link>
+                    <div
+                      className="md:mr-6 w-max md:w-auto flex flex-col items-start relative z-[5] justify-between gap-2"
+                      style={
+                        {
+                          // boxShadow:
+                          //   "20px 0px 55px 0px black, -20px 0px 55px 0px black",
+                          // background: "black",
+                        }
+                      }
                     >
-                      <span className="text-[#ff8a97]">Our</span> Priority
-                    </h2>
+                      <h1
+                        className={cn(
+                          "z-[1] text-center sm:text-left sm:text-6xl md:text-7xl text-5xl relative",
+                          poppins.className
+                        )}
+                      >
+                        Your Health
+                        <span className="text-[#ff8a97]">,</span>
+                      </h1>
+                      <h2
+                        className={cn(
+                          "z-[1] sm:text-6xl md:text-7xl text-5xl relative",
+                          poppins.className
+                        )}
+                      >
+                        <span className="text-[#ff8a97]">Our</span> Priority
+                      </h2>
+                    </div>
+                    <p
+                      className="mt-3 text-justify w-full sm:w-[75%] relative z-[2]"
+                      style={{
+                        boxShadow: "0px 0px 55px 20px black",
+                        background: "black",
+                      }}
+                    >
+                      Pioneer in the free health industry, harnessing the power
+                      of AI.
+                    </p>
+                    <GlowButton
+                      className="w-max mt-[25px] relative z-[1]"
+                      style={{
+                        boxShadow: "0px 0px 55px 20px black",
+                        background: "black",
+                      }}
+                    >
+                      Become a Promoter
+                    </GlowButton>
                   </div>
-                  <p
-                    className="mt-3 text-justify w-full sm:w-[75%] relative z-[2]"
+                  {/* Bottom Left */}
+                  <div className="w-full h-1/2" id="languages">
+                    <div className="w-full">
+                      <LampContainer>
+                        <Typewriter />
+                      </LampContainer>
+                    </div>
+                  </div>
+                </div>
+                {/* Right */}
+                <div className="flex relative flex-col items-center space-between min-h-full lg:w-1/2 md:w-1/4">
+                  <motion.div
+                    className="w-[50vw] min-h-[100vh] absolute left-1/2 -translate-x-1/2"
                     style={{
-                      boxShadow: "0px 0px 55px 20px black",
-                      background: "black",
+                      // y: phoneParallax,
+                      x: "-50%",
                     }}
                   >
-                    Pioneer in the free health industry, harnessing the power of
-                    AI.
-                  </p>
-                  <GlowButton
-                    className="w-max mt-[25px] relative z-[1]"
-                    style={{
-                      boxShadow: "0px 0px 55px 20px black",
-                      background: "black",
-                    }}
-                  >
-                    Become a Promoter
-                  </GlowButton>
-                </div>
-                {/* Bottom Left */}
-                <div className="w-full h-1/2" id="languages">
-                  <div className="w-full">
-                    <LampContainer>
-                      <Typewriter />
-                    </LampContainer>
-                  </div>
-                </div>
-              </div>
-              {/* Right */}
-              <div className="flex relative flex-col items-center space-between min-h-full lg:w-1/2 md:w-1/4">
-                <motion.div
-                  className="w-[50vw] min-h-[100vh] absolute left-1/2 -translate-x-1/2"
-                  style={{
-                    // y: phoneParallax,
-                    x: "-50%",
-                  }}
-                >
-                  {/* <CarComponent scrollYProgress={scrollYProgress} /> */}
-                  {/* <Phone scrollYProgress={scrollYProgress}>
+                    {/* <CarComponent scrollYProgress={scrollYProgress} /> */}
+                    {/* <Phone scrollYProgress={scrollYProgress}>
               <SSHomePage bubbleWidth={0} contentOpacity={0} scrollYProgress={scrollYProgress}></SSHomePage>
             </Phone> */}
-                  {/* <Phone /> */}
-                </motion.div>
-              </div>
-            </main>
+                    {/* <Phone /> */}
+                  </motion.div>
+                </div>
+              </main>
 
-            <BentoGrid />
+              <BentoGrid />
 
-            <DownloadSection />
+              <DownloadSection />
 
-            <Suspense fallback={null}>
-              <Footer />
-            </Suspense>
-          </Scroll>
-        </ScrollControls>
+              <Suspense fallback={null}>
+                <Footer />
+              </Suspense>
+            </Scroll>
+          </ScrollControls>
+        </PerformanceMonitor>
       </Canvas>
       <Loader
         containerStyles={{
