@@ -1,36 +1,21 @@
 "use client";
 import { cn } from "@/utils/cn";
-import { Poppins } from "next/font/google";
 import Link from "next/link";
-import SSHomePage from "@/components/ss-home-page";
 import { GlowButton } from "@/components/ui/glow-button";
-import {
-  motion,
-  useMotionTemplate,
-  useMotionValueEvent,
-  useTransform,
-} from "framer-motion";
+import { motion } from "framer-motion";
 import { Suspense, useRef, useState } from "react";
 import Header from "@/components/header";
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import Android from "@/components/badges/android";
-import IOS from "@/components/badges/ios";
 import dynamic from "next/dynamic";
-import PhoneHeader from "./_phone";
-import { Canvas, useThree } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
+import Lightbox from "yet-another-react-lightbox";
+import ReactImageVideoviewer from "react-image-video-viewer";
+
 import {
-  CubeCamera,
-  Environment,
-  Html,
   Loader,
   PerformanceMonitor,
-  PerspectiveCamera,
   Scroll,
   ScrollControls,
-  useScroll,
 } from "@react-three/drei";
-import { PerspectiveCamera as IPerspectiveCamera } from "three";
 import Phone from "./_phone";
 import useViewport from "@/hooks/useViewport";
 import Footer, {
@@ -42,7 +27,7 @@ import useMediaQuery from "@/hooks/useMediaQuery";
 import DownloadSection from "./_sections/download";
 import { useGetBentoSize } from "@/components/bento-grid";
 import useMount from "@/hooks/useMount";
-import gsap from "gsap";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 const Typewriter = dynamic(() => import("@/components/typewriter"));
 const BentoGrid = dynamic(() => import("@/components/bento-grid"));
@@ -55,11 +40,7 @@ export default function Home() {
   const bentoSectionHeight = useGetBentoSize();
   const verticalLamp = useMediaQuery("(max-width: 768px)");
 
-  const [rotation, setRotation] = useState<[number, number, number] | null>(
-    // [0, 0, 0]
-    null
-  );
-
+  const [openLightbox, setOpenLightbox] = useState(false);
   const viewport = useViewport();
 
   useMount(() => {
@@ -70,6 +51,31 @@ export default function Home() {
   return (
     <>
       <Header />
+      {(openLightbox) && <ReactImageVideoviewer
+        data={[
+          {
+            url: "https://www.youtube.com/embed/3tdaMVsEsIw",
+            type: "video",
+            title: "Pitch Video",
+          },
+          {
+            url: "https://www.youtube.com/embed/Nlt4CQHtM-0",
+            type: "video",
+            title: "Testimonial Video",
+          },
+          {
+            url: "https://www.youtube.com/embed/a5xixlYGa3Y",
+            type: "video",
+            title: "Demo Video",
+          },
+        ]}
+        startIndex={0}
+        showResourceCount={false}
+        onCloseCallback={() => setOpenLightbox(false)}
+        // onNavigationCallback={(currentIndex) =>
+        //   console.log(`Current index: ${currentIndex}`)
+        // }
+      />}
       <Canvas
         className="w-full"
         style={{
@@ -185,13 +191,15 @@ export default function Home() {
                       of AI.
                     </p>
                     <GlowButton
-                      className="w-max mt-[25px] relative z-[1]"
+                      className="w-max mt-[25px] relative z-[1] flex items-center gap-2"
+                      onClick={() => setOpenLightbox(true)}
                       style={{
                         boxShadow: "0px 0px 55px 20px black",
                         background: "black",
                       }}
                     >
-                      Become a Promoter
+                      <Icon icon="carbon:play" />
+                      Watch the Videos
                     </GlowButton>
                   </div>
                   {/* Bottom Left */}

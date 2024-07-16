@@ -37,7 +37,7 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
-  children: string;
+  children: React.ReactNode;
 }
 
 const GlowButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -52,7 +52,7 @@ const GlowButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         {...props}
       >
-        <span className="btnInner">{children}</span>
+        <span className="btnInner flex gap-2 !flex-row">{children}</span>
       </Comp>
     );
   }
